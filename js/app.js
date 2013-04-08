@@ -1,7 +1,3 @@
-function exec() {
-    var code = editor.getValue();
-    $.ajax({url: 'run.php', type: "POST", data: {code: code}, success: loaded});
-}
 function loaded(data, textStatus, jqXHR) {
     time = jqXHR.getResponseHeader('X-PHPBin-RunTime');
     memory = jqXHR.getResponseHeader('X-PHPBin-MemoryPeakUsage');
@@ -34,7 +30,7 @@ editor.setTheme("ace/theme/chrome");
 session = editor.getSession();
 session.setMode("ace/mode/php");
 
-editor.setValue("<?php\n\n");
+editor.setValue("<?php\n\n# Example\necho date('l, j F, H:i');");
 editor.setFontSize('14px');
 session.setFoldStyle("markbegin");
 session.setUseWrapMode(false);
@@ -74,7 +70,7 @@ var AppView = Backbone.View.extend({
     },
     execute: function() {
         var code = editor.getValue();
-        $.ajax({url: 'run.php', type: "POST", data: {code: code}, success: loaded});
+        $.ajax({url: 'run.html', type: "POST", data: {code: code}, success: loaded});
         return false;
     },
     checkF9: function(e) {
