@@ -63,7 +63,8 @@ var AppView = Backbone.View.extend({
     el: $("body"),
     events: {
         "click #bRun": "execute",
-        "keydown": "checkF9"
+        "keydown": "checkF9",
+        "change #consoleMode": "consoleModeChange"
     },
     initialize: function() {
 
@@ -77,8 +78,13 @@ var AppView = Backbone.View.extend({
         if (120 === e.keyCode) {
             this.execute();
         }
+    },
+    consoleModeChange: function() {
+        phpConsole.getSession().setMode("ace/mode/" + $("#consoleMode").val());
     }
 
 });
 
 var App = new AppView;
+
+
