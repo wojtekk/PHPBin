@@ -1,4 +1,5 @@
 function loaded(data, textStatus, jqXHR) {
+    console.log("loaded");
     time = jqXHR.getResponseHeader('X-PHPBin-RunTime');
     memory = jqXHR.getResponseHeader('X-PHPBin-MemoryPeakUsage');
     result = '';
@@ -21,52 +22,47 @@ function loaded(data, textStatus, jqXHR) {
     editor.focus();
 }
 
-var editor;
-var phpConsole;
-
-//$(document).ready(function() {
-editor = ace.edit("editor");
-editor.setTheme("ace/theme/chrome");
-session = editor.getSession();
-session.setMode("ace/mode/php");
-
-editor.setValue("<?php\n\n# Example\necho date('l, j F, H:i');");
-editor.setFontSize('14px');
-session.setFoldStyle("markbegin");
-session.setUseWrapMode(false);
-editor.setSelectionStyle("line");
-editor.setHighlightActiveLine(true);
-
-editor.setShowInvisibles(false);
-editor.setDisplayIndentGuides(true);
-editor.renderer.setShowGutter(true);
-editor.renderer.setShowPrintMargin(true);
-editor.setHighlightSelectedWord(true);
-editor.renderer.setHScrollBarAlwaysVisible(false);
-editor.setAnimatedScroll(true);
-editor.session.setUseSoftTabs(true);
-editor.setBehavioursEnabled(true);
-editor.setFadeFoldWidgets(true);
-
-phpConsole = ace.edit("phpConsole");
-phpConsole.setTheme("ace/theme/chrome");
-phpConsole.getSession().setMode("ace/mode/text");
-phpConsole.setFontSize('14px');
-phpConsole.setReadOnly(true);
-
-editor.clearSelection();
-editor.focus();
-//})
-
-
 var AppView = Backbone.View.extend({
     el: $("body"),
+    editor: null,
+    phpConsole: null,
     events: {
         "click #bRun": "execute",
-        "keydown": "checkF9"
+        "keydown": "checkF9",
+        "change #consoleMode": "consoleModeChange"
     },
     initialize: function() {
+        editor = ace.edit("editor");
+        editor.setTheme("ace/theme/chrome");
+        session = editor.getSession();
+        session.setMode("ace/mode/php");
 
+        editor.setValue("<?php\n\n# Example\necho date('l, j F, H:i');");
+        editor.setFontSize('14px');
+        session.setFoldStyle("markbegin");
+        session.setUseWrapMode(false);
+        editor.setSelectionStyle("line");
+        editor.setHighlightActiveLine(true);
+
+        editor.setShowInvisibles(false);
+        editor.setDisplayIndentGuides(true);
+        editor.renderer.setShowGutter(true);
+        editor.renderer.setShowPrintMargin(true);
+        editor.setHighlightSelectedWord(true);
+        editor.renderer.setHScrollBarAlwaysVisible(false);
+        editor.setAnimatedScroll(true);
+        editor.session.setUseSoftTabs(true);
+        editor.setBehavioursEnabled(true);
+        editor.setFadeFoldWidgets(true);
+
+        phpConsole = ace.edit("phpConsole");
+        phpConsole.setTheme("ace/theme/chrome");
+        phpConsole.getSession().setMode("ace/mode/text");
+        phpConsole.setFontSize('14px');
+        phpConsole.setReadOnly(true);
+
+        editor.clearSelection();
+        editor.focus();
     },
     execute: function() {
         var code = editor.getValue();
@@ -77,8 +73,13 @@ var AppView = Backbone.View.extend({
         if (120 === e.keyCode) {
             this.execute();
         }
+    },
+    consoleModeChange: function() {
+        phpConsole.getSession().setMode("ace/mode/" + $("#consoleMode").val());
     }
 
 });
 
 var App = new AppView;
+
+

@@ -27,17 +27,20 @@
                     <a class="brand" href="/"><b>PHPBin</b></a>
                     <a class="github" href="https://github.com/wojtekk/PHPBin">GitHub</a>
                     <button id="bRun" class="btn pull-right btn-primary">Run [F9]</button>
-                    <select class="pull-right">
-                        <option>Text</option>
-                        <option>JSON</option>
-                        <option>XML</option>
-                        <option>HTML</option>
-                        <option>CSS</option>
-                        <option>JavaScript</option>
-                        <option>SVG</option>
-                        <option>SQL</option>
-                        <option>YAML</option>
-                        <option>INI</option>
+                    <select class="pull-right" id="consoleMode" title="Console mode">
+                        <optgroup label="Basic">
+                            <option value="text">Text</option>
+                            <option value="json">JSON</option>
+                            <option value="xml">XML</option>
+                            <option value="html">HTML</option>
+                        <optgroup label="Additional">
+                            <option value="javascript">JavaScript</option>
+                            <option value="php">PHP</option>
+                            <option value="sh">SH</option>
+                            <option value="sql">SQL</option>
+                            <option value="svg">SVG</option>
+                            <option value="xquery">XQuery</option>
+                            <option value="yaml">YAML</option>
                     </select>
                     <button id="lMemory" class="btn disabled pull-right hide" title="Memory peak usage"><span class="icon-tasks"></span><span class="value" /></button>
                     <button id="lTime" class="btn disabled pull-right hide" title="Run time"><span class="icon-time"></span><span class="value" /></button>
