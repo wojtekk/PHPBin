@@ -42,7 +42,7 @@
                             <option value="xquery">XQuery</option>
                             <option value="yaml">YAML</option>
                     </select>
-                    <button id="lMemory" class="btn disabled pull-right hide" title="Memory peak usage"><span class="icon-tasks"></span><span class="value" /></button>
+                    <button id="lMemory" class="btn disabled pull-right hide" title="Approximate memory usage / memory peak usage"><span class="icon-tasks"></span><span class="value" /></button>
                     <button id="lTime" class="btn disabled pull-right hide" title="Run time"><span class="icon-time"></span><span class="value" /></button>
                 </div>
             </div>
