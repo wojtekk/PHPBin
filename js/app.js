@@ -1,5 +1,4 @@
 function loaded(data, textStatus, jqXHR) {
-    console.log("loaded");
     time = jqXHR.getResponseHeader('X-PHPBin-RunTime');
     memory = jqXHR.getResponseHeader('X-PHPBin-MemoryPeakUsage');
     result = '';
@@ -18,6 +17,12 @@ function loaded(data, textStatus, jqXHR) {
     result += data;
 
     phpConsole.setValue(result);
+    phpConsole.clearSelection();
+    editor.focus();
+}
+
+function errorLoaded(jqXHR, textStatus, errorThrown) {
+    phpConsole.setValue("Run error (" + textStatus + ")" );
     phpConsole.clearSelection();
     editor.focus();
 }
@@ -77,7 +82,7 @@ var AppView = Backbone.View.extend({
     },
     execute: function() {
         var code = editor.getValue();
-        $.ajax({url: 'run.php', type: "POST", data: {code: code}, success: loaded});
+        $.ajax({url: 'run.php', type: "POST", data: {code: code}, success: loaded, error: errorLoaded });
         return false;
     },
     checkF9: function(e) {

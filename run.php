@@ -42,7 +42,7 @@ function getHumanTime($ms) {
     }
 }
 
-$file = '/tmp/' . microtime() . '-' . mt_rand(1, 10000) . '.tmp.inc';
+$file = '/tmp/' . microtime(true) . '-' . mt_rand(1, 10000) . '.tmp.inc';
 
 file_put_contents($file, $_POST['code']);
 
