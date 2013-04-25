@@ -30,6 +30,8 @@ var AppView = Backbone.View.extend({
         "click #bRun": "execute",
         "keydown": "checkF9",
         "change #consoleMode": "consoleModeChange"
+        //Document.on("change", function(Object e))
+        //Editor.on("change", function(Object e))
     },
     initialize: function() {
         editor = ace.edit("editor");
@@ -66,7 +68,7 @@ var AppView = Backbone.View.extend({
     },
     execute: function() {
         var code = editor.getValue();
-        $.ajax({url: 'run.html', type: "POST", data: {code: code}, success: loaded});
+        $.ajax({url: 'run.php', type: "POST", data: {code: code}, success: loaded});
         return false;
     },
     checkF9: function(e) {
