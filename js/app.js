@@ -30,8 +30,7 @@ var AppView = Backbone.View.extend({
         "click #bRun": "execute",
         "keydown": "checkF9",
         "change #consoleMode": "consoleModeChange"
-        //Document.on("change", function(Object e))
-        //Editor.on("change", function(Object e))
+
     },
     initialize: function() {
         editor = ace.edit("editor");
@@ -39,7 +38,17 @@ var AppView = Backbone.View.extend({
         session = editor.getSession();
         session.setMode("ace/mode/php");
 
-        editor.setValue("<?php\n\n# Example\necho date('l, j F, H:i');");
+        editor.on("change", function(e) {
+            localStorage.setItem("sourceCode", editor.getValue());
+        });
+        var c = localStorage.getItem("sourceCode");
+        if (c) {
+            editor.setValue(c);
+
+        } else {
+            editor.setValue("<?php\n\n# Example\necho date('l, j F, H:i');");
+
+        }
         editor.setFontSize('14px');
         session.setFoldStyle("markbegin");
         session.setUseWrapMode(false);
